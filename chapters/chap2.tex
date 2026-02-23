@@ -1,0 +1,848 @@
+\part{全纯函数}
+
+\section{复变函数中的导数}
+\begin{definition}[导数]
+    设 \(f: D \to \mathbb{C}\) 是定义在域 \(D\) 上的函数，\(z_0 \in D\)。如果极限
+\[
+\lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0} \tag{2.1.1}
+\]
+存在，就说 \(f\) 在 \(z_0\) 处复可微或可微，这个极限称为 \(f\) 在 \(z_0\) 处的导数或微商，记作 \(f'(z_0)\)。如果 \(f\) 在 \(D\) 中每点都可微，就称 \(f\) 是域 \(D\) 中的全纯函数或解析函数。如果 \(f\) 在 \(z_0\) 的一个邻域中全纯，就称 \(f\) 在 \(z_0\) 处全纯。
+\end{definition}
+\begin{prop}[可微与连续的关系]
+    若$f$ 在$z_0$可微，则$f$ 在$z_0$ 连续。反之不成立。
+\end{prop}
+\begin{proof}
+     函数 \(f(z) = \overline{z}\) 在 \(\mathbb{C}\) 中处处不可微。这是因为：\\
+     对于任意 \(z \in \mathbb{C}\)，有
+\[
+\frac{f(z + \Delta z) - f(z)}{\Delta z} = \frac{\overline{z + \Delta z} - \overline{z}}{\Delta z} = \frac{\overline{\Delta z}}{\Delta z}.
+\]
+如果让 \(\Delta z\) 取实数，则 \(\frac{\overline{\Delta z}}{\Delta z} = 1\)；如果让 \(\Delta z\) 取纯虚数，则 \(\frac{\overline{\Delta z}}{\Delta z} = -1\)。因此，当 \(\Delta z \to 0\) 时上述极限不存在，因而在 \(\mathbb{C}\) 中处处不可导。
+\end{proof}
+处处连续且处处可微的函数在复变函数中的例子很多\sn{ 例如$f\left( z \right) = \operatorname{Re} z, \, f\left( z \right) = \left| z \right|$. }，着说面复变函数中可微的要求比实变中要强，因而得到的结论也强。
+
+\begin{prop}[全纯函数的性质]
+若 \(f\) 和 \(g\) 在域 \(D\) 中全纯，那么 \(f \pm g\)，\(fg\) 也在 \(D\) 中全纯，而且\[(f(z) \pm g(z))' = f'(z) \pm g'(z),\]
+\[(f(z)g(z))' = f'(z)g(z) + f(z)g'(z).\]
+如果对每一点 \(z \in D\)，\(g(z) \neq 0\)，那么 \(\frac{f}{g}\) 也是 \(D\) 中的全纯函数，而且
+%\[ \left( \frac{f(z)}{g(z)} \right)' = \frac{f'(z)g(z) - g'(z)f(z)}{(g(z))^2}.\]
+设 \(D_1, D_2\) 是 \(\mathbb{C}\) 中的两个域，且
+\[
+f: D_1 \to D_2, \quad g: D_2 \to \mathbb{C}
+\]
+都是全纯函数，那么 \(h = g \circ f\) 是 \(D_1 \to \mathbb{C}\) 的全纯函数，而且 \(h'(z) = g'(f(z))f'(z)\)。这里，\(g \circ f\) 记 \(f\) 和 \(g\) 的复合函数：\(g \circ f(z) = g(f(z))\)。
+
+\end{prop}
+
+\section{Cauchy-Remamn方程}
+%\label{sec:Cauchy-Remamn-founction}
+%现在讨论$f$ 在某点$z_0$可微的充分必要条件，为此先引入$f$在$z_0$处实可微的概念。
+\begin{definition}[实可微]
+    设 \(f(z) = u(x, y) + \mathrm{i}v(x, y)\) 是定义在域 \(D\) 上的函数，\(z_0 = x_0 + \mathrm{i}y_0 \in D\)。我们说 \(f\) 在点 \(z_0\) 处实可微，是指 \(u\) 和 \(v\) 作为 \(x, y\) 的二元函数在 \((x_0, y_0)\) 处可微。
+\end{definition}
+\begin{theorem}[实可微的充要条件]
+    设 \(f: D \to \mathbb{C}\) 是定义在域 \(D\) 上的函数，\(z_0 \in D\)，那么 \(f\) 在 \(z_0\) 处实可微的充分必要条件是
+\[
+f(z_0 + \Delta z) - f(z_0) = \frac{\partial f}{\partial z}(z_0)\Delta z + \frac{\partial f}{\partial \overline{z}}(z_0)\overline{\Delta z} + o(|\Delta z|).
+\]
+，其中\mn{
+为什么要像\ref{equation:operator_cauchy}式那样来定义算子 \(\frac{\partial}{\partial z}\) 和 \(\frac{\partial}{\partial \overline{z}}\) 呢？这是因为如果把复变函数 \(f(z)\) 写成
+\[
+f(x,y) = f\left( \frac{z + \overline{z}}{2}, -i \frac{z - \overline{z}}{2} \right),
+\]
+把 \(z, \overline{z}\) 看成独立变量，分别对 \(z\) 和 \(\overline{z}\) 求偏导数，则得
+\[
+\frac{\partial f}{\partial z} = \frac{\partial f}{\partial x} \frac{\partial x}{\partial z} + \frac{\partial f}{\partial y} \frac{\partial y}{\partial z} = \frac{1}{2}\left( \frac{\partial f}{\partial x} - i \frac{\partial f}{\partial y} \right),
+\]
+\[
+\frac{\partial f}{\partial \overline{z}} = \frac{\partial f}{\partial x} \frac{\partial x}{\partial \overline{z}} + \frac{\partial f}{\partial y} \frac{\partial y}{\partial \overline{z}} = \frac{1}{2}\left( \frac{\partial f}{\partial x} + i \frac{\partial f}{\partial y} \right).
+\]
+
+这就是表达式\ref{equation:operator_cauchy}的来源。这说明在进行微分运算时，可以把 \(z, \overline{z}\) 看成独立的变量。
+}： 
+\[
+\frac{\partial}{\partial z} = \frac{1}{2}\left( \frac{\partial}{\partial x} - \mathrm{i}\frac{\partial}{\partial y} \right),
+\]
+\[
+\frac{\partial}{\partial \overline{z}} = \frac{1}{2}\left( \frac{\partial}{\partial x} + \mathrm{i}\frac{\partial}{\partial y} \right).
+\]
+\end{theorem}
+\begin{proof}
+    今设 \(f\) 在 \(z_0\) 处实可微, 按定义, 有
+\[
+u(x_0 + \Delta x, y_0 + \Delta y) - u(x_0, y_0) = \frac{\partial u}{\partial x}(x_0, y_0)\Delta x + \frac{\partial u}{\partial y}(x_0, y_0)\Delta y + o(|\Delta z|),
+\]
+\[
+v(x_0 + \Delta x, y_0 + \Delta y) - v(x_0, y_0) = \frac{\partial v}{\partial x}(x_0, y_0)\Delta x + \frac{\partial v}{\partial y}(x_0, y_0)\Delta y + o(|\Delta z|),
+\]
+这里, \(|\Delta z| = \sqrt{(\Delta x)^2 + (\Delta y)^2}\). 于是
+\begin{align*}
+f(z_0 + \Delta z) - f(z_0) &= u(x_0 + \Delta x, y_0 + \Delta y) - u(x_0, y_0) \\
+&\quad + \mathrm{i}\left(v(x_0 + \Delta x, y_0 + \Delta y) - v(x_0, y_0)\right) \\
+&= \frac{\partial u}{\partial x}(x_0, y_0)\Delta x + \frac{\partial u}{\partial y}(x_0, y_0)\Delta y + o(|\Delta z|) \\
+&\quad + \mathrm{i}\left(\frac{\partial v}{\partial x}(x_0, y_0)\Delta x + \frac{\partial v}{\partial y}(x_0, y_0)\Delta y + o(|\Delta z|)\right) \\
+&= \left(\frac{\partial u}{\partial x}(x_0, y_0) + \mathrm{i}\frac{\partial v}{\partial x}(x_0, y_0)\right)\Delta x \\
+&\quad + \left(\frac{\partial u}{\partial y}(x_0, y_0) + \mathrm{i}\frac{\partial v}{\partial y}(x_0, y_0)\right)\Delta y + o(|\Delta z|) \\
+&= \frac{\partial f}{\partial x}(x_0, y_0)\Delta x + \frac{\partial f}{\partial y}(x_0, y_0)\Delta y + o(|\Delta z|).
+\end{align*}
+
+把 \(\Delta x = \frac{1}{2}(\Delta z + \overline{\Delta z})\), \(\Delta y = \frac{1}{2\mathrm{i}}(\Delta z - \overline{\Delta z})\) 代入上式, 得
+\begin{align*}
+f(z_0 + \Delta z) - f(z_0) &= \frac{1}{2}\frac{\partial f}{\partial x}(x_0, y_0)(\Delta z + \overline{\Delta z}) \\
+&\quad - \frac{\mathrm{i}}{2}\frac{\partial f}{\partial y}(x_0, y_0)(\Delta z - \overline{\Delta z}) + o(|\Delta z|) \\
+&= \frac{1}{2}\left(\frac{\partial}{\partial x} - \mathrm{i}\frac{\partial}{\partial y}\right)f(x_0, y_0)\Delta z \\
+&\quad + \frac{1}{2}\left(\frac{\partial}{\partial x} + \mathrm{i}\frac{\partial}{\partial y}\right)f(x_0, y_0)\overline{\Delta z} + o(|\Delta z|).
+\end{align*}
+
+引进算子
+\begin{equation}
+\label{equation:operator_cauchy}
+\frac{\partial}{\partial z} = \frac{1}{2}\left(\frac{\partial}{\partial x} - \mathrm{i}\frac{\partial}{\partial y}\right),\\
+\frac{\partial}{\partial \overline{z}} = \frac{1}{2}\left(\frac{\partial}{\partial x} + \mathrm{i}\frac{\partial}{\partial y}\right).
+\end{equation}
+则上式可写为
+\[
+f(z_0 + \Delta z) - f(z_0) = \frac{\partial f}{\partial z}(z_0)\Delta z + \frac{\partial f}{\partial \overline{z}}(z_0)\overline{\Delta z} + o(|\Delta z|).
+\]
+\end{proof}
+
+\begin{theorem}[可微的条件]
+    设 \(f\) 是定义在域 \(D\) 上的函数，\(z_0 \in D\)，那么 \(f\) 在 \(z_0\) 处可微的充要条件是 \(f\) 在 \(z_0\) 处实可微且 \(\frac{\partial f}{\partial \overline{z}}(z_0) = 0\)。\mn{在可微的情况下，\(f'(z_0) = \frac{\partial f}{\partial z}(z_0)\)。}
+\end{theorem}
+\begin{proof}
+如果 \(f\) 在 \(z_0\) 处可微，由 2.1 节的 (2.1.2) 式得
+\[
+f(z_0 + \Delta z) - f(z_0) = f'(z_0)\Delta z + o(|\Delta z|).
+\]
+与 (2.2.4) 式比较就知道，\(f\) 在 \(z_0\) 处是实可微的，而且 \(\frac{\partial f}{\partial \overline{z}}(z_0) = 0\)，\(f'(z_0) = \frac{\partial f}{\partial z}(z_0)\)。
+
+反之，若 \(f\) 在 \(z_0\) 处实可微，且 \(\frac{\partial f}{\partial \overline{z}}(z_0) = 0\)，则由 (2.2.4) 得
+\[
+f(z_0 + \Delta z) - f(z_0) = \frac{\partial f}{\partial z}(z_0)\Delta z + o(|\Delta z|).
+\]
+由此即知 \(f\) 在 \(z_0\) 处可微，而且 \(f'(z_0) = \frac{\partial f}{\partial z}(z_0)\)。
+    
+\end{proof}
+
+\begin{definition}[Cauchy-Remamn方程]
+    \(\frac{\partial f}{\partial \overline{z}} = 0\) 称为 Cauchy–Riemann 方程。
+\end{definition}
+\begin{theorem}[\(f\) 可微时实部和虚部应满足的条件]
+    \label{thm:real_and_image}
+    设 \(f = u + \mathrm{i}v\) 是定义在域 \(D\) 上的函数，\(z_0 = x_0 + \mathrm{i}y_0 \in D\)，那么 \(f\) 在 \(z_0\) 处可微的充要条件是 \(u(x, y)\)，\(v(x, y)\) 在 \((x_0, y_0)\) 处可微，且在 \((x_0, y_0)\) 处满足
+    \mn{在可微的情况下，有
+\begin{align*}
+f'(z_0) &= \frac{\partial u}{\partial x} + \mathrm{i}\frac{\partial v}{\partial x} = \frac{\partial v}{\partial y} + \mathrm{i}\frac{\partial v}{\partial x} \\
+&= \frac{\partial u}{\partial x} - \mathrm{i}\frac{\partial u}{\partial y} = \frac{\partial v}{\partial y} - \mathrm{i}\frac{\partial u}{\partial y}.
+\end{align*}
+这里的偏导数都在 \((x_0, y_0)\) 处取值。}
+\[
+\begin{cases}
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \\
+\frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}.
+\end{cases}
+\]
+\end{theorem}
+\begin{proof}
+    设 \(f = u + \mathrm{i}v\)，则由\ref{equation:operator_cauchy}式得
+\begin{align*}
+\frac{\partial f}{\partial \overline{z}} &= \frac{\partial u}{\partial \overline{z}} + \mathrm{i}\frac{\partial v}{\partial \overline{z}} = \frac{1}{2}\left(\frac{\partial u}{\partial x} + \mathrm{i}\frac{\partial u}{\partial y}\right) + \frac{\mathrm{i}}{2}\left(\frac{\partial v}{\partial x} + \mathrm{i}\frac{\partial v}{\partial y}\right) \\
+&= \frac{1}{2}\left(\frac{\partial u}{\partial x} - \frac{\partial v}{\partial y}\right) + \frac{\mathrm{i}}{2}\left(\frac{\partial u}{\partial y} + \frac{\partial v}{\partial x}\right).
+\end{align*}
+
+因此，Cauchy–Riemann 方程 \(\frac{\partial f}{\partial \overline{z}} = 0\) 就等价于
+\[
+\begin{cases}
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \\
+\frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}.
+\end{cases}\]
+\end{proof}
+
+\begin{definition}[函数类]
+    设 \(D\) 是 \(\mathbb{C}\) 中的域，\\
+    用 \(C(D)\) 记 \(D\) 上连续函数的全体，用 \(H(D)\) 记 \(D\) 上全纯函数的全体。\\
+    用 \(C^1(D)\) 记 \(\frac{\partial f}{\partial x}\)，\(\frac{\partial f}{\partial y}\) 在 \(D\) 上连续的 \(f\) 的全体。\\
+    用 \(C^k(D)\) 记在 \(D\) 上有 \(k\) 阶连续偏导数的函数的全体.\\
+   用 \(C^\infty(D)\) 记在 \(D\) 上有任意阶连续偏导数的函数的全体。
+\end{definition}
+\begin{theorem}[各函数类的关系]
+    \[
+H(D) \subset C^\infty(D) \subset C^k(D) \subset C^1(D) \subset C(D),
+\]
+\end{theorem}
+
+\begin{example}
+研究函数 \(f(z) = z^n\)，\(n\) 是自然数。
+\end{example}
+
+\begin{proof}
+显然，\(\frac{\partial f}{\partial \overline{z}} = 0\)，且 \(f\) 在整个平面上是实可微的。因而，\(f\) 是 \(\mathbb{C}\) 上的全纯函数，而且
+\[
+f'(z) = \frac{\partial f}{\partial z} = n z^{n-1}.
+\]
+\end{proof}
+
+\begin{example}
+研究函数 \(f(z) = e^{-|z|^2}\)。
+\end{example}
+
+\begin{proof}
+把 \(f\) 写为 \(f(z) = e^{-z\overline{z}}\)，于是 \(\frac{\partial f}{\partial \overline{z}} = -e^{-z\overline{z}}z\)，它只有在 \(z = 0\) 处才等于零。因此，\(e^{-|z|^2}\) 只有在 \(z = 0\) 处可微，它在任何点处都不是全纯的。但它对 \(x, y\) 有任意阶连续偏导数，所以它是 \(C^\infty(\mathbb{C})\) 中的函数。
+\end{proof}
+
+\begin{definition}[调和函数]
+    设 \(u\) 是 \(D\) 上的实值函数，如果 \(u \in C^2(D)\)，且对任意 \(z \in D\)，有
+\[
+\Delta u(z) = \frac{\partial^2 u(z)}{\partial x^2} + \frac{\partial^2 u(z)}{\partial y^2} = 0,
+\]
+就称 \(u\) 是 \(D\) 中的调和函数
+\mn{\begin{definition}[Laplace算子]
+\(\Delta = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}\) 称为 Laplace 算子。\end{definition}}
+\end{definition}
+。
+
+\begin{theorem}[H(D)函数分量的性质]
+    设 \(f = u + \mathrm{i}v \in H(D)\)，那么 \(u\) 和 \(v\) 都是 \(D\) 上的调和函数。
+    \begin{lemma}[C2函数的性质]\mn{  \begin{proof}
+    由\ref{equation:operator_cauchy} 式，有
+\[
+\frac{\partial u}{\partial \overline{z}} = \frac{1}{2}\left(\frac{\partial u}{\partial x} + \mathrm{i}\frac{\partial u}{\partial y}\right).
+\]
+所以
+\begin{align*}
+\frac{\partial^2 u}{\partial z\partial \overline{z}} &= \frac{\partial}{\partial z}\left(\frac{\partial u}{\partial \overline{z}}\right) \\
+&= \frac{1}{4}\frac{\partial}{\partial x}\left(\frac{\partial u}{\partial x} + \mathrm{i}\frac{\partial u}{\partial y}\right) \\
+&- \frac{1}{4} \mathrm{i}\frac{\partial}{\partial y}\left(\frac{\partial u}{\partial x} + \mathrm{i}\frac{\partial u}{\partial y}\right) \\
+&= \frac{1}{4}\left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right) = \frac{1}{4}\Delta u.
+\end{align*}
+\end{proof} }
+        设 \(u \in C^2(D)\)，那么 \(\Delta u = 4\frac{\partial^2 u}{\partial z\partial \overline{z}}\)。
+    \end{lemma}
+\end{theorem}
+
+\begin{proof}
+    因为 \(f \in H(D)\)，由 Cauchy–Riemann 方程，有
+\[
+\frac{\partial f}{\partial \overline{z}} = 0, \quad \frac{\partial \overline{f}}{\partial z} = 0.
+\]
+所以
+\[
+\frac{\partial^2 f}{\partial z\partial \overline{z}} = \frac{\partial^2 \overline{f}}{\partial z\partial \overline{z}} = 0.
+\]
+于是，由 \(u = \frac{1}{2}(f + \overline{f})\) 即得
+\[
+\Delta u = 4\frac{\partial^2 u}{\partial z\partial \overline{z}} = 0.
+\]
+同理可证 \(\Delta v = 0\)。
+\end{proof}
+
+\begin{definition}[共轭调和函数]
+    设 \(u\) 和 \(v\) 是一对调和函数，如果它们还满足 Cauchy–Riemann 方程
+\[
+\begin{cases}
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \\
+\frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x},
+\end{cases}
+\]
+就称 \(v\) 为 \(u\) 的共轭调和函数。
+\end{definition}
+全纯函数的实部和虚部就构成一对共轭调和函数。给定域$D$中的调和函数$u$，是否存在$u$的共轭调和函数$v$，使得$ u + iv$ 成为$D$中的全纯函数? 对于单连通域，答案是肯定的。
+\begin{theorem}[共轭调和函数的存在性]
+    设 \(u\) 是单连通域 \(D\) 上的调和函数，则必存在 \(u\) 的共轭调和函数 \(v\)，使得 \(u + \mathrm{i}v\) 是 \(D\) 上的全纯函数。 
+\end{theorem}
+\begin{proof}
+    因为 \(u\) 满足 Laplace 方程
+\[
+\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0,
+\]
+若令 \(P = -\frac{\partial u}{\partial y}\)，\(Q = \frac{\partial u}{\partial x}\)，则
+\[
+\frac{\partial Q}{\partial x} = \frac{\partial^2 u}{\partial x^2} = -\frac{\partial^2 u}{\partial y^2} = \frac{\partial P}{\partial y},
+\]
+所以
+\[
+P \,\mathrm{d}x + Q \,\mathrm{d}y = -\frac{\partial u}{\partial y}\mathrm{d}x + \frac{\partial u}{\partial x}\mathrm{d}y
+\]
+是一个全微分，因而积分
+\[
+\int_{(x_0,y_0)}^{(x,y)} -\frac{\partial u}{\partial y}\mathrm{d}x + \frac{\partial u}{\partial x}\mathrm{d}y
+\]
+与路径无关。令
+\[
+v(x,y) = \int_{(x_0,y_0)}^{(x,y)} -\frac{\partial u}{\partial y}\mathrm{d}x + \frac{\partial u}{\partial x}\mathrm{d}y,
+\]
+那么
+\[
+\begin{cases}
+\frac{\partial v}{\partial x} = -\frac{\partial u}{\partial y}, \\
+\frac{\partial v}{\partial y} = \frac{\partial u}{\partial x}.
+\end{cases}
+\]
+所以，\(v\) 就是要求的 \(u\) 的共轭调和函数。
+\end{proof}
+
+\section{导数的几何意义}%
+\label{sec:derivative_geo}
+\begin{definition}[共形映射]
+    称$f\left( z\right) $ 为在$z_0$ 处的共形映射，如果$f'\left( z_0 \right) \neq 0.$
+\end{definition}
+\begin{theorem}[保角]
+    全纯函数在其导数不为零的点处是保角的。也即是说：\\
+如果过 \(z_0\) 点作两条光滑曲线 \(\gamma_1, \gamma_2\)，它们的方程分别为
+\[
+z = \gamma_1(t),\quad a \le t \le b
+\]
+和
+\[
+z = \gamma_2(t),\quad a \le t \le b.
+\]
+且 \(\gamma_1(a) = \gamma_2(a) = z_0\)（图 2.1(a)）。映射 \(w = f(z)\) 把它们分别映为过 \(w_0\) 点的两条光滑曲线 \(\sigma_1\) 和 \(\sigma_2\)（图 2.1(b)），它们的方程分别为
+\[
+w = \sigma_1(t) = f(\gamma_1(t)),\quad a \le t \le b
+\]
+和
+\[
+w = \sigma_2(t) = f(\gamma_2(t)),\quad a \le t \le b.
+\]
+
+由 (2.3.1) 式可得
+\[
+\operatorname{Arg} \sigma_1'(a) - \operatorname{Arg} \gamma_1'(a) = \operatorname{Arg} f'(z_0) = \operatorname{Arg} \sigma_2'(a) - \operatorname{Arg} \gamma_2'(a),
+\]
+即
+\begin{equation}
+\label{equ:baojiao}
+\operatorname{Arg} \sigma_2'(a) - \operatorname{Arg} \sigma_1'(a) = \operatorname{Arg} \gamma_2'(a) - \operatorname{Arg} \gamma_1'(a). 
+\end{equation}
+\end{theorem}
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=1.2\textwidth]{figures/9.png}
+    \caption{}
+    \label{fig:9-png}
+\end{marginfigure}
+
+上式左端是曲线 \(\sigma_1\) 和 \(\sigma_2\) 在 \(w_0\) 处的夹角（两条曲线在某点的夹角定义为这两条曲线在该点的切线的夹角），右端是曲线 \(\gamma_1\) 和 \(\gamma_2\) 在 \(z_0\) 处的夹角。式\ref{equ:baojiao}说明，如果 \(f'(z_0) \neq 0\)，那么在映射 \(w = f(z)\) 的作用下，过 \(z_0\) 点的任意两条光滑曲线的夹角的大小与旋转方向都是保持不变的。我们把具有这种性质的映射称为在 \(z_0\) 点是保角的。
+
+\begin{proof}
+    设 \( f \) 是域 \( D \) 上的连续函数，\( z_0 \in D \)，如果 \( f \) 在 \( z_0 \) 处全纯，且 \( f'(z_0) \neq 0 \)，我们来讨论 \( f'(z_0) \) 这个复数的几何意义。
+
+过 \( z_0 \) 作一条光滑曲线 \( \gamma \)，它的方程为
+\[
+z = \gamma(t),\quad a \le t \le b.
+\]
+
+设 \( \gamma(a) = z_0 \)，且 \( \gamma'(a) \neq 0 \)。前面说过，\( \gamma \) 在点 \( z_0 \) 处的切线与正实轴的夹角为 \( \operatorname{Arg} \gamma'(a) \)。设 \( w = f(z) \) 把曲线 \( \gamma \) 映为 \( \sigma \)，它的方程为
+\[
+w = \sigma(t) = f(\gamma(t)),\quad a \le t \le b.
+\]
+
+由于 \( \sigma'(a) = f'(\gamma(a))\gamma'(a) = f'(z_0)\gamma'(a) \neq 0 \)，所以 \( \sigma \) 在 \( w_0 = f(z_0) \) 处的切线与正实轴的夹角为
+\[
+\operatorname{Arg} \sigma'(a) = \operatorname{Arg} f'(z_0) + \operatorname{Arg} \gamma'(a),
+\]
+或者写为
+\begin{equation}
+\operatorname{Arg} \sigma'(a) - \operatorname{Arg} \gamma'(a) = \operatorname{Arg} f'(z_0). 
+\end{equation}
+
+这说明像曲线 \( \sigma \) 在 \( w_0 \) 处的切线与正实轴的夹角与原曲线 \( \gamma \) 在 \( z_0 \) 处的切线与正实轴的夹角之差总是 \( \operatorname{Arg} f'(z_0) \)，而与曲线 \( \gamma \) 无关。\( \operatorname{Arg} f'(z_0) \) 就称为映射 \( w = f(z) \) 在点 \( z_0 \) 处的转动角
+\end{proof}
+
+下面来看导数的模的几何意义。
+\begin{definition}[伸缩率]
+    称$ \left|f'\left( z_0 \right) \right|$为$f$ 在$z_0$ 处的伸缩率。     
+\end{definition}
+\begin{prop}[伸缩率的性质]
+    伸缩率只与$z_0$ 有关。
+\end{prop}
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=1.2\textwidth]{figures/10.png}
+    \caption{}
+    \label{fig:10-png}
+\end{marginfigure}
+\begin{proof}
+    和刚才一样，过 \(z_0\) 点作曲线 \(\gamma\)，它在映射 \(f\) 下的像为 \(\sigma\) (图\ref{fig:10-png})。由于
+\[
+\lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0} = f'(z_0),
+\]
+所以，当 \(z\) 沿着 \(\gamma\) 趋于 \(z_0\) 时，有
+\[
+\lim_{z \to z_0} \frac{|f(z) - f(z_0)|}{|z - z_0|} = \lim_{z \to z_0} \frac{|w - w_0|}{|z - z_0|} = |f'(z_0)|.
+\]
+\end{proof}
+综上所述，我们看到：如果 \(f'(z_0) \neq 0\)，在 \(z_0\) 的邻域中，作一个以 \(z_0\) 为顶点的小三角形，这个小三角形被 \(f\) 映射为一个曲边三角形，它的微分三角形和原来的小三角形相似（图\ref{fig:11-png}）。
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=1.2\textwidth]{figures/11.png}
+    \caption{}
+    \label{fig:11-png}
+\end{marginfigure}
+
+\section{初等全纯函数}%
+\label{sec:primary_dervi_function}
+在讨论一般的全纯函数理论之前，先介绍几个初等的全纯函数. 在微积分中，我们把幂函数、指数函数及其反函数对数函数、三角函数及其反函数反三角函数这三类函数叫做基本初等函数，由这些基本初等函数经过有限次的加、减、乘、除以及复合运算所得的函数称为初等函数. 其实，幂函数也可通过指数函数和对数函数复合而得，但三角函数和指数函数没有直接的关系. 因此，基本初等函数实际上只有指数函数和三角函数以及它们各自的反函数两类. \\下面我们将要看到，在复数域中，三角函数是可以用指数函数来表示的. 因此，在复数域中，基本初等函数就只有指数函数及其反函数这一类. 我们的讨论当然也从指数函数开
+
+\subsection{指数函数}
+如何定义复变数指数函数？至少应该满足一下两点\mn{对任意实数 \(t\)，有
+\[
+e^t = \sum_{n=0}^{\infty} \frac{t^n}{n!},
+\]
+\[
+\cos t = \sum_{n=0}^{\infty} (-1)^n \frac{t^{2n}}{(2n)!},
+\]
+\[
+\sin t = \sum_{n=0}^{\infty} (-1)^n \frac{t^{2n+1}}{(2n+1)!}.
+\]
+
+用 \(t = \mathrm{i}y\) 代入 \(e^t\) 的展开式中，得
+\begin{align*}
+e^{\mathrm{i}y} 
+&= \sum_{n=0}^{\infty} \frac{(\mathrm{i}y)^n}{n!} \\
+&= \sum_{k=0}^{\infty} \frac{(\mathrm{i}y)^{2k}}{(2k)!} + \sum_{k=0}^{\infty} \frac{(\mathrm{i}y)^{2k+1}}{(2k+1)!} \\
+&= \sum_{k=0}^{\infty} (-1)^k \frac{y^{2k}}{(2k)!} \\
+&+ \mathrm{i} \sum_{k=0}^{\infty} (-1)^k \frac{y^{2k+1}}{(2k+1)!} \\
+&= \cos y + \mathrm{i} \sin y.
+\end{align*}
+上式在收敛时对实数成立，可据此定义复数。
+}：
+\begin{enumerate}
+    \item $e^z$ 在平面$\bbC$ 上的每一点都可导.
+    \item $z\in \bbR$ 时，他的定义与实数定义的指数兼容.
+\end{enumerate}
+\begin{definition}[指数]
+    设$z=x +iy$，那么 $e^z=e^x\left( \cos y + i \sin y \right) $.
+\end{definition}
+\begin{prop}[指数函数的性质]
+    \begin{enumerate}
+        \item  \(e^z\) 是 \(\mathbb{C}\) 上的全纯函数，而且
+\[
+(e^z)' = e^z.
+\]
+\(e^z\) 在 \(\mathbb{C}\) 上每点实可微是显然的，今验证它满足 Cauchy–Riemann 方程。因为
+\[
+u(x,y) = e^x \cos y,\quad v(x,y) = e^x \sin y,
+\]
+所以
+\[
+\frac{\partial u}{\partial x} = e^x \cos y = \frac{\partial v}{\partial y}, \quad
+\frac{\partial u}{\partial y} = -e^x \sin y = -\frac{\partial v}{\partial x}.
+\]
+故由定理\ref{thm:real_and_image}，\(e^z\) 在 \(\mathbb{C}\) 上全纯，而且
+\[
+(e^z)' = \frac{\partial u}{\partial x} + \mathrm{i}\frac{\partial v}{\partial x} = e^x \cos y + \mathrm{i}e^x \sin y = e^z.
+\]
+
+        \item 当 \(z = x\) 时，即 \(y = 0\)，因而有 \(e^z = e^x\)；当 \(z = \mathrm{i}y\) 时，\(e^{\mathrm{i}y} = \cos y + \mathrm{i}\sin y\)。这样，复数的三角表示 \(z = r(\cos\theta + \mathrm{i}\sin\theta)\) 就可简单地写为 \(z = r e^{\mathrm{i}\theta}\)。
+
+        \item 对于任意 \(z \in \mathbb{C}\)，\(e^z \neq 0\)。这是因为
+\[
+|e^z| = e^x > 0.
+\]
+
+        \item 对于任意 \(z_1, z_2\)，有
+\[
+e^{z_1} e^{z_2} = e^{z_1 + z_2}.
+\]
+设 \(z_1 = x_1 + \mathrm{i}y_1\)，\(z_2 = x_2 + \mathrm{i}y_2\)，直接计算即得
+\begin{align*}
+e^{z_1} e^{z_2} &= e^{x_1}(\cos y_1 + \mathrm{i}\sin y_1) e^{x_2}(\cos y_2 + \mathrm{i}\sin y_2) \\
+&= e^{x_1 + x_2}[\cos(y_1 + y_2) + \mathrm{i}\sin(y_1 + y_2)] \\
+&= e^{z_1 + z_2}.
+\end{align*}
+
+        \item \(e^z\) 是以 \(2\pi \mathrm{i}\) 为周期的周期函数，这是实变指数函数 \(e^x\) 所没有的性质。证明当然很简单：
+\[
+e^{z + 2\pi \mathrm{i}} = e^{x + \mathrm{i}(y + 2\pi)} = e^x[\cos(y + 2\pi) + \mathrm{i}\sin(y + 2\pi)] = e^z.
+\]
+    \end{enumerate}
+\end{prop}
+
+\begin{definition}[单叶映射，一一映射]
+    设 \(f: D \to \mathbb{C}\) 是一个复变函数。如果对域 \(D\) 中任意两点 \(z_1, z_2\)（\(z_1 \neq z_2\)），必有 \(f(z_1) \neq f(z_2)\)，就称 \(f\) 在 \(D\) 中是单叶的，\(D\) 称为 \(f\) 的单叶性域。\\
+    \textbf{一一映射}如果$f$ 在$D$ 中是单叶的，$f\left( D \right) = G$ ，那么称$f$ 是$D$ 到$G$ 的一一映射。
+\end{definition}
+
+\begin{example}
+求 \(w = e^z\) 的单叶性域。
+\end{example}
+
+如果 \(z_1 = x_1 + \mathrm{i}y_1\)，\(z_2 = x_2 + \mathrm{i}y_2\) 使得 \(e^{z_1} = e^{z_2}\)，即 \(e^{x_1} e^{\mathrm{i}y_1} = e^{x_2} e^{\mathrm{i}y_2}\)，那么 \(x_1 = x_2\)，\(y_1 - y_2 = 2k\pi\)，\(k\) 是任意整数，也即 \(z_1 - z_2 = 2k\pi \mathrm{i}\)。这就是说，凡是不包含满足条件 \(z_1 - z_2 = 2k\pi \mathrm{i}\) 的域都是 \(w = e^z\) 的单叶性域。例如，域
+\[
+\{z = x + \mathrm{i}y : 2k\pi < y < 2(k+1)\pi\}, \quad k = 0, \pm 1, \dots
+\]
+都是 \(e^z\) 的单叶性域，它是平行于实轴、宽度为 \(2\pi\) 的带状域。由于 \(e^z\) 是以 \(2\pi \mathrm{i}\) 为周期的函数，我们只要弄清 \(e^z\) 在域 \(\{z = x + \mathrm{i}y : 0 < y < 2\pi\}\) 中的映射性质，那么在其他带状域中的性质是一样的。
+
+现在我们来研究 \(w = e^z\) 把平行于实轴的直线 \(\operatorname{Im} z = y_0\) 变成什么。这条直线上的点的方程为
+\[
+z = x + \mathrm{i}y_0, \quad -\infty < x < \infty,
+\]
+所以
+\[
+w = e^z = e^x e^{\mathrm{i}y_0}.
+\]
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/4.png}
+    \caption{}
+    \label{fig:two}
+\end{marginfigure}
+这是一条从原点出发的半射线，它与实轴正方向的夹角是 \(y_0\)(图\ref{fig:two})。当 \(y_0\) 从 \(0\) 变到 \(2\pi\) 时，这条半射线的辐角也从 \(0\) 变到 \(2\pi\)。因此，\(w = e^z\) 把带状域 \(\{z = x + \mathrm{i}y : 0 < y < 2\pi\}\) 变成全平面除掉正实轴的域 \(\mathbb{C} \setminus \{z : z \ge 0\}\)，直线 \(\operatorname{Im} z = 0\) 变成正实轴的上岸，直线 \(\operatorname{Im} z = 2\pi\) 变成正实轴的下岸；带状域 \(\{z = x + \mathrm{i}y : 0 < y < \pi\}\) 变成上半平面，带状域 \(\{z = x + \mathrm{i}y : \pi < y < 2\pi\}\) 变成下半平面。一般来说，\(w = e^z\) 把带状域 \(\{z = x + \mathrm{i}y : \alpha < y < \beta, 0 < \alpha < \beta < 2\pi\}\) 变成角状域 \(\alpha < \arg w < \beta\)。
+ 
+\subsection{对数函数}
+\begin{definition}[对数函数]
+    设$z\in \bbC$ ，那么：称$\omega=\operatorname{Log} z$ 为$z$ 的对数，如果$e^{\omega}=z$.
+\end{definition}
+\begin{prop}[计算公式]
+    设 \(z = r e^{\mathrm{i}\theta}\)，\(w = u + \mathrm{i}v\)，则 \(e^{u+\mathrm{i}v} = r e^{\mathrm{i}\theta}\)，因而 \(e^u = r\)，\(v = \theta + 2k\pi\)。于是
+\[
+\operatorname{Log} z = \log|z| + \mathrm{i}\arg z + 2k\pi\mathrm{i} = \log|z| + \mathrm{i}\operatorname{Arg} z.
+\]
+\end{prop}
+\begin{theorem}[多值函数取单值的条件]
+\label{thm:duozhi_danzhi}
+    如果 \(D\) 是不包含原点和无穷远点
+\mn{为什么要求 \(D\) 不包含原点和无穷远点?如果 \(D\) 包含原点，那么 \(D\) 中就包含绕原点 \(z=0\) 的简单闭曲线 \(\gamma\)。当 \(z\) 从 \(\gamma\) 上的一点 \(z_0\) 沿 \(\gamma\) 行走（即反时针方向）回到 \(z_0\) 时，\(z\) 的辐角增加了 \(2\pi\)，\(\varphi_k\) 的值从 \(\varphi_k(z_0)\) 连续地变为 \(\varphi_{k+1}(z_0)\)，而不再回到原来的 \(\varphi_k(z_0)\)。因此，在这样的域中就不可能从 \(\operatorname{Log} z\) 中分出单值的全纯分支。因为 \(D\) 内任意一条绕原点的简单闭曲线也可以看作是绕无穷远点的简单闭曲线，因此 \(D\) 也不能包含无穷远点。}
+的单连通域，则必在 \(D\) 上存在无穷多个单值全纯函数 \(\varphi_k, k = 0, \pm 1, \dots\)，使得在 \(D\) 上成立
+\[
+e^{\varphi_k(z)} = z, \quad k = 0, \pm 1, \dots;
+\]
+而且对每一个 \(k\)，有 \(\varphi_k'(z) = \frac{1}{z}\)。其中的每一个 \(\varphi_k\) 都称为 \(\operatorname{Log} z\) 在 \(D\) 上的单值全纯分支。
+
+\end{theorem}
+\begin{proof}
+    对给定的 \(z\)，选定它的辐角 \(\theta = \theta_0 + 2k_0\pi\)，这里，\(\theta_0\) 是 \(z\) 的辐角的主值，即 \(\theta_0 = \arg z\)，\(k_0\) 是任意一个给定的整数。在 \(D\) 上定义
+\[
+\varphi_{k_0}(z) = \log|z| + \mathrm{i}(\theta_0 + 2k_0\pi) = \log r + \mathrm{i}\theta.
+\]
+这时，\(u = \log r\)，\(v = \theta\)。容易验证这时有
+\[
+\frac{\partial u}{\partial r} = \frac{1}{r}\frac{\partial v}{\partial \theta}, \quad \frac{\partial u}{\partial \theta} = -r\frac{\partial v}{\partial r}.
+\]
+因此由习题\mn{ 设 \(z = r(\cos\theta + \mathrm{i}\sin\theta)\)，\(f(z) = u(r, \theta) + \mathrm{i}v(r, \theta)\)，证明 Cauchy–Riemann 方程为
+\[
+\begin{cases}
+\dfrac{\partial u}{\partial r} = \dfrac{1}{r}\dfrac{\partial v}{\partial \theta}, \\[6pt]
+\dfrac{\partial v}{\partial r} = -\dfrac{1}{r}\dfrac{\partial u}{\partial \theta}.
+\end{cases}
+\] }知道，\(\varphi_{k_0}\) 是 \(D\) 上的全纯函数，而且
+\[
+\varphi_{k_0}'(z) = \frac{r}{z}\left( \frac{\partial u}{\partial r} + \mathrm{i}\frac{\partial v}{\partial r} \right) = \frac{1}{z}.
+\]
+此外，
+\[
+e^{\varphi_{k_0}(z)} = e^{\log|z| + \mathrm{i}(\theta_0 + 2k_0\pi)} = |z|e^{\mathrm{i}\theta_0} = z,
+\]
+对每一点 \(z \in D\) 成立。
+\end{proof}
+
+\begin{definition}[支点]
+    如果当 \(z\) 沿着 \(z_0\) 的充分小邻域中的任意简单闭曲线绕一圈时，多值函数的值就从一支变到另一支，那么称 \(z_0\) 为该多值函数的一个支点。
+\end{definition}
+
+\begin{prop}[Log z的映射性质]
+    现在讨论 \(\operatorname{Log} z\) 的映射性质。根据定理 \ref{thm:real_and_image}，我们取 \(D\) 为 \(\mathbb{C}\) 除去负实轴后所得的域，它是不包含原点和无穷远点的单连通域，因而可以分出无穷多个全纯分支。我们把 \(k_0 = 0\) 的那一支称为它的主支，这时取 \(\operatorname{Arg} z\) 的主值为 \(-\pi < \arg z < \pi\)，于是
+\[
+w = \varphi_0(z) = \log|z| + \mathrm{i}\arg z.
+\]
+把 \(D\) 单叶地映为带状域 \(-\pi < \operatorname{Im} w < \pi\)。其他各分支，例如 \(w = \varphi_k(z) = \log|z| + \mathrm{i}(\arg z + 2k\pi)\)，就把 \(D\) 单叶地映为带状域 \((2k - 1)\pi < \operatorname{Im} w < (2k + 1)\pi\)。一般来说，\(w = \varphi_0(z)\) 把角状域 \(-\pi < \arg z < \beta < \pi\) 单叶地映为带状域 \(\alpha < \operatorname{Im} w < \beta\)。今后，我们就把 \(\operatorname{Log} z\) 的主支 \(\varphi_0(z)\) 记为 \(\log z\)。
+
+有时，为了方便起见，也可把 \(\mathbb{C}\) 去掉正实轴以后的域取为 \(D\)，它同样是不包含原点和无穷远点的单连通域，但这时辐角的主值范围应取为 \(0 < \arg z < 2\pi\)。\(\operatorname{Log} z\) 的主支是
+\[
+\log z = \log|z| + \mathrm{i}\arg z, \quad 0 < \arg z < 2\pi.
+\]
+它把 \(D\) 单叶地映为带状域 \(0 < \operatorname{Im} w < 2\pi\)。
+
+一般来说，还可以用一条从原点出发并伸向无穷远的曲线代替上面的负实轴或正实轴，这样得到的域 \(D\) 同样满足定理\ref{thm:real_and_image}的条件。我们把这种从原点出发并伸向无穷远的曲线叫做割线。通常，为了便于表达 \(\operatorname{Log} z\) 的单值分支 \(\varphi_k(z)\)，常取从原点出发的一条射线作为割线，特别是取负实轴或正实轴。
+
+\end{prop}
+
+\subsection{幂函数}
+\begin{definition}[幂函数]
+    设$\mu\in \bbC$，那么：称$\omega$ 为幂函数，如果$\omega=z^{\mu}$
+\end{definition}
+\begin{definition}[整函数]
+    在$\bbC$ 每一点都全纯的函数称为全纯函数。
+\end{definition}
+
+\begin{prop}[各种数的幂函数]
+\begin{enumerate}
+    \item \( \mu = n \)，\( n \) 为自然数。
+        按导数的定义，可以直接算出
+\[
+(z^n)' = n z^{n-1}.
+\]
+因此，\( w = z^n \) 在 \( \mathbb{C} \) 上每点都是全纯的。一般地，\( w = z^n \) 是一个整函数。由于其导数除原点外均不为零，故除原点外它是一个保角变换，保角性在原点不成立。
+
+考虑从原点出发、与正实轴夹角为 \( \theta \) 的射线，其辐角满足 \( \arg z = \theta \)。由 \( w = z^n \)，可得
+\[
+\arg w = n \arg z = n\theta.
+\]
+这表明，该射线的像仍是过原点的射线，但其与正实轴的夹角为 \( n\theta \)，即夹角扩大了 \( n \) 倍。这一性质在保角变换中十分有用：例如，\( w = z^2 \) 可将第一象限映射为上半平面，\( w = z^3 \) 可将角状域 \( \{ z : 0 < \arg z < \frac{\pi}{3} \} \) 映射为上半平面等。
+
+关于 \( w = z^n \) 的单叶性域，设 \( z_1 = r_1 e^{i\theta_1} \)，\( z_2 = r_2 e^{i\theta_2} \)。若 \( z_1 \neq z_2 \) 但 \( z_1^n = z_2^n \)，则 \( r_1^n e^{i n\theta_1} = r_2^n e^{i n\theta_2} \)，从而 \( r_1 = r_2 \) 且 \( \theta_1 = \theta_2 + \frac{2k\pi}{n} \)（\( k \in \mathbb{Z} \)）。因此，只要域中不存在两点其辐角差为 \( \frac{2\pi}{n} \)，该域即为 \( w = z^n \) 的单叶性域。例如，\( \{ z : 0 < \arg z < \frac{2\pi}{n} \} \) 是一个单叶性域。一般地，域
+\[
+\{ z : \alpha < \arg z < \beta,\ 0 < \beta - \alpha \leq \frac{2\pi}{n} \}
+\]
+是单叶性域，其在 \( w = z^n \) 下的像为
+\[
+\{ w : n\alpha < \arg w < n\beta \}.
+\]
+\item \( \mu = \frac{1}{n} \)，\( n \) 为自然数。\( w = z^{1/n} \) 是 \( w = z^n \) 的反函数。对给定的 \( z \)，\( z^{1/n} \) 有 \( n \) 个值，故为多值函数，其多值性源于 \( \arg z \) 的多值性，支点为 \( z = 0 \) 和 \( z = \infty \)。在 \( \mathbb{C} \) 去掉正实轴的域上，可分出 \( n \) 个单值全纯分支：
+\[
+w = \varphi_k(z) = \sqrt[n]{|z|} \left( \cos \frac{\theta + 2k\pi}{n} + i \sin \frac{\theta + 2k\pi}{n} \right),\quad k = 0, 1, \dots, n-1,
+\]
+其中 \( \theta = \arg z \)，且 \( 0 < \arg z < 2\pi \)。\( k = 0 \) 的分支称为主支，记为 \( w = \sqrt[n]{z} \)。
+
+主支的映射性质：将从原点发出、辐角为 \( \theta \) 的射线映射为辐角 \( \frac{\theta}{n} \) 的射线。因此，\( w = \sqrt[n]{z} \) 可将除去正实轴的全平面单叶地映射为角状域 \( \{ z : 0 < \arg z < \frac{2\pi}{n} \} \)。例如，\( w = \sqrt{z} \) 映射为上半平面，\( w = \sqrt[3]{z} \) 映射为第一象限。
+    \item  \( \mu = a + bi \)，\( a, b \in \mathbb{R} \)。一般幂函数 \( w = z^\mu \) 定义为
+\[
+w = z^\mu = e^{\mu \log z}.
+\]
+代入 \( \log z = \log |z| + i(\arg z + 2k\pi) \)（\( k \in \mathbb{Z} \)），得
+\[
+\begin{aligned}
+w = z^\mu &= e^{(a + bi)(\log |z| + i(\arg z + 2k\pi))} \\
+&= e^{a \log |z| - b(\arg z + 2k\pi)} e^{i\left( b \log |z| + a(\arg z + 2k\pi) \right)},\quad k = 0, \pm 1, \dots.
+\end{aligned}
+\]
+
+根据 \( \mu \) 的取值，\( z^\mu \) 的多值性可分为以下情形：
+- **(a)** 若 \( b = 0 \) 且 \( a = n \in \mathbb{Z} \)，则 \( w = z^n \) 为单值函数。
+- **(b)** 若 \( b = 0 \) 且 \( a = \frac{p}{q} \in \mathbb{Q} \)（\( p, q \in \mathbb{Z} \)，\( q > 0 \)），则
+  \[
+  w = z^\mu = z^{p/q} = |z|^{p/q} e^{i \frac{p}{q}(\arg z + 2k\pi)}.
+  \]
+  当 \( k = 0, 1, \dots, q-1 \) 时，\( z^{p/q} \) 有 \( q \) 个不同值，故为 \( q \) 值函数。
+- **(c)** 若 \( b = 0 \) 且 \( a \in \mathbb{R} \setminus \mathbb{Q} \)，则
+  \[
+  w = z^\mu = |z|^a e^{i a \arg z} e^{i 2k\pi a}.
+  \]
+  由于 \( a \) 为无理数，\( k a \) 恒不为整数，故 \( z^\mu \) 为无穷值函数。
+- **(d)** 若 \( b \neq 0 \)，则 \( w = z^\mu \) 为无穷值函数。
+
+综上，情形 (b), (c), (d) 中 \( z^\mu \) 均为多值函数，其多值性由 \( \log z \) 引起，支点为 \( z = 0 \) 和 \( z = \infty \)。在 \( \log z \) 可分出单值全纯分支的域 \( D \) 内，\( z^\mu \) 也可分出单值全纯分支。设 \( \varphi_k(z) \) 为 \( \log z \) 在 \( D \) 中的单值全纯分支，则 \( z^\mu \) 的单值全纯分支为
+\[
+w_k(z) = e^{\mu \varphi_k(z)}.
+\]
+其中，主支定义为
+\[
+w_0(z) = e^{\mu \varphi_0(z)} = e^{\mu \log z}.
+\]
+由于 \( \varphi_k(z) - \varphi_{k+1}(z) = 2\pi i \)，故 \( w_{k+1}(z) = w_k(z) e^{2\pi i \mu} \)。又 \( \varphi_k'(z) = \frac{1}{z} \)，因此
+\[
+w_k'(z) = e^{\mu \varphi_k(z)} \cdot \mu \varphi_k'(z) = \mu z^{\mu - 1} = \mu e^{(\mu - 1) \varphi_k(z)}.
+\]
+\end{enumerate}
+\end{prop}
+
+\begin{example}[保角变换]
+    求一保角变换，把除去线段 \( \{ z = a + iy : 0 < y < h \} \) 的上半平面变为上半平面。  
+\end{example}
+    初看起来，解这样的题目很困难，因为并没有一个现成的变换可以达到上述目的. 我们的想法是把整个变换过程分解成若干个简单的步骤，而每一个步骤都可用我们已知的变换来实现，把这些变换复合起来，就是我们要找的变换。
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/5.png}
+    \caption{}
+    \label{fig:5_png}
+\end{marginfigure}
+\begin{proof}
+\begin{itemize}
+\item 平移：\( z_1 = z - a \)，将线段左移至虚轴上的 \( 0 < \text{Im} z_1 < h \)。
+\item 平方：\( z_2 = z_1^2 \)，将线段映射到负实轴上的 \( -h^2 < \text{Re} z_2 < 0 \)。
+\item 平移：\( z_3 = z_2 + h^2 \)，将割线移至 \( 0 < \text{Re} z_3 < h^2 \)。
+\item 开方：\( w = \sqrt{z_3} \)，将除去正实轴的平面映射为上半平面。
+\end{itemize}
+最终变换：
+\[
+w = \sqrt{z_3} = \sqrt{z_2 + h^2} = \sqrt{z_1^2 + h^2} = \sqrt{(z - a)^2 + h^2}.
+\]
+\end{proof}
+
+\begin{example}[保角变换]
+求一保角变换，把除去割线 \( \{ z = x + i : -\infty < x < -1 \} \) 后的带域 \( \{ z : 0 < \text{Im} z < 2 \} \) 变为上半平面。   
+\end{example}
+    过程同上。
+    \begin{marginfigure}
+        \centering
+        \includegraphics[width=\textwidth]{figures/6.png}
+        \caption{}
+        \label{fig:6_png}
+    \end{marginfigure}
+\begin{proof}
+\begin{itemize}
+    \item 指数变换：\( \zeta = e^{\pi z} \)，将带域 \( 0 < \text{Im} z < 2 \) 映射为除去正实轴的平面，割线 \( z = x + i \)（\( x < -1 \)）映射为 \( 0 < \text{Re} \zeta < e^{-\pi} \)。
+    \item 应用上一例的结果：\( w = \sqrt{\zeta + e^{-\pi}} = \sqrt{e^{\pi z} + e^{-\pi}} \)，将除去线段的平面映射为上半平面。
+\end{itemize}
+\end{proof}
+
+\subsection{三角变换}
+\begin{definition}[三角变换]
+    设 \(z\in \bbC\) ，定义\mn{\[
+\tan z = \frac{\sin z}{\cos z},
+\]
+\[
+\cot z = \frac{\cos z}{\sin z}.
+\]}
+\[
+\cos z = \frac{1}{2}(e^{\mathrm{i}z} + e^{-\mathrm{i}z}),
+\]
+\[
+\sin z = \frac{1}{2\mathrm{i}}(e^{\mathrm{i}z} - e^{-\mathrm{i}z}).
+\]
+\end{definition}
+
+\begin{prop}[三角变换的性质]
+    \begin{enumerate}
+    \item 因为 \(e^{\mathrm{i}z}\), \(e^{-\mathrm{i}z}\) 是整函数，所以 \(\cos z\) 和 \(\sin z\) 也都是整函数。而且
+    \[
+    (\cos z)' = -\sin z, \quad (\sin z)' = \cos z.
+    \]
+
+    \item 由于 \(e^{\mathrm{i}z}\) 和 \(e^{-\mathrm{i}z}\) 都以 \(2\pi\) 为周期，所以 \(\cos z\) 和 \(\sin z\) 也都以 \(2\pi\) 为周期。
+
+    \item \(\cos z\) 是偶函数，\(\sin z\) 是奇函数，即
+    \[
+    \cos(-z) = \cos z, \quad \sin(-z) = -\sin z.
+    \]
+
+    \item 对任意复数 \(z_1\) 和 \(z_2\)，有
+    \[
+    \cos(z_1 + z_2) = \cos z_1 \cos z_2 - \sin z_1 \sin z_2,
+    \]
+    \[
+    \sin(z_1 + z_2) = \sin z_1 \cos z_2 + \cos z_1 \sin z_2.
+    \]
+    根据定义直接验证即得。
+
+    \item 在 (2.4.1) 式中令 \(z_1 = z\), \(z_2 = -z\)，即得
+    \[
+    \cos^2 z + \sin^2 z = 1.
+    \]
+    在 (2.4.2) 式中令 \(z_1 = z_2 = z\)，即得
+    \[
+    \sin 2z = 2 \sin z \cos z.
+    \]
+
+    \item \(\sin z\) 仅在 \(z = k\pi\) 处为零，\(\cos z\) 仅在 \(z = k\pi + \frac{\pi}{2}\) 处为零，这里，\(k = 0, \pm 1, \dots\)。这是因为
+    \[
+    \sin z = \frac{1}{2\mathrm{i}}(e^{\mathrm{i}z} - e^{-\mathrm{i}z}) = \frac{1}{2\mathrm{i}}e^{\mathrm{i}z}(e^{2\mathrm{i}z} - 1).
+    \]
+    \(\sin z = 0\) 当且仅当 \(e^{2\mathrm{i}z} - 1 = 0\)，而这只有当 \(z = k\pi\)（\(k = 0, \pm 1, \pm 2, \dots\)）时才能成立。又因为 \(\cos z = \sin\left(\frac{\pi}{2} - z\right)\)，\(\cos z = 0\) 当且仅当 \(\sin\left(\frac{\pi}{2} - z\right) = 0\)，所以 \(z = \frac{\pi}{2} + k\pi\)。
+
+    \item \(\cos z\) 和 \(\sin z\) 不是有界函数（这是与实变正余弦函数的核心区别）。
+    若取 \(z = \mathrm{i}y\)，\(y\) 是实数，则
+    \[
+    \cos z = \frac{1}{2}(e^{\mathrm{i}z} + e^{-\mathrm{i}z}) = \frac{1}{2}(e^{-y} + e^{y}) \to \infty \quad (\text{当 } y \to \infty \text{ 时}).
+    \]
+    对于 \(\sin z\)，取 \(z = \frac{\pi}{2} + \mathrm{i}y\)，则有
+    \[
+    \sin\left(\frac{\pi}{2} + \mathrm{i}y\right) = \cos \mathrm{i}y \to \infty \quad (\text{当 } y \to \infty \text{ 时}).
+    \]
+\end{enumerate}
+\end{prop}
+
+\subsection{一个多值函数}
+\begin{definition}[]
+    \[
+w = \sqrt[m]{(z - a_1)^{\beta_1} \cdots (z - a_m)^{\beta_m}}.
+\]
+其中$a_1,a_2,\ldots,a_n \in \bbC$，$\beta_1, \bata_2,\ldots,\beta_n \in \bbN$，$n$ 是整数。
+\end{definition}
+\begin{theorem}[分出单值的全纯分支]
+    如果域 \(D\) 只包含这样的简单闭曲线，它的内部或者不含有任何支点，或者包含一组支点 \(a_{i_1}, \dots, a_{i_j}\)，但与它们相应的 \(\beta_{i_1} + \dots + \beta_{i_j}\) 是 \(n\) 的倍数，那么
+\[
+w = \sqrt[n]{(z - a_1)^{\beta_1} \cdots (z - a_m)^{\beta_m}}
+\]
+在 \(D\) 中能分出单值的全纯分支。  
+\end{theorem}
+\begin{proof}
+    在什么样的域中，从它能分出单值的全纯分支呢？任取 \(z_0 \neq a_j\)，\(j = 1, \dots, m\)，取充分小的简单闭曲线 \(\gamma_0\)，使 \(z_0\) 在其内部，\(a_1, \dots, a_m\) 都在其外部。当 \(z\) 沿着 \(\gamma_0\) 的正方向走一圈时，\(z - a_1, \dots, z - a_m\) 的辐角都不变，故 \(z_0\) 不是支点。再看 \(a_j\) 是不是支点，以 \(a_1\) 为例，记 \(z - a_j = r_j e^{\mathrm{i}\theta_j}\)，\(j = 1, \dots, m\)，于是 \(w\) 可写为
+\[
+w = \sqrt[n]{r_1^{\beta_1} \cdots r_m^{\beta_m}} e^{\mathrm{i}(\beta_1\theta_1 + \dots + \beta_m\theta_m)/n}.
+\]
+取简单闭曲线 \(\gamma_1\)，使 \(a_1\) 在其内部，\(a_2, \dots, a_m\) 都在其外部。当 \(z\) 沿着 \(\gamma_1\) 的正方向走一圈时，\(\theta_1\) 增加 \(2\pi\)，\(\theta_2, \dots, \theta_m\) 都不变，\(w\) 就变成
+\[
+w = \sqrt[n]{r_1^{\beta_1} \cdots r_m^{\beta_m}} e^{\mathrm{i}(\beta_1\theta_1 + \dots + \beta_m\theta_m)/n + 2\pi \beta_1 \mathrm{i}/n} = e^{\frac{2\pi \beta_1}{n} \mathrm{i}} \sqrt[n]{r_1^{\beta_1} \cdots r_m^{\beta_m}} e^{\mathrm{i}(\beta_1\theta_1 + \dots + \beta_m\theta_m)/n}.
+\]
+因此，只有当 \(\beta_1\) 是 \(n\) 的倍数时，\(w\) 的值才不变。其他 \(a_2, \dots, a_m\) 点的情况也一样。于是得到结论：如果 \(\beta_j\) 不是 \(n\) 的倍数，那么 \(a_j\) 是它的支点。再看有无穷远点，取充分大的圆周，使 \(a_1, \dots, a_m\) 都在其内部。当 \(z\) 沿着这个圆周转一圈时，\(z - a_1, \dots, z - a_m\) 的辐角都要增加 \(2\pi\)，\(w\) 就变成
+\[
+e^{\frac{2\pi \mathrm{i}(\beta_1 + \dots + \beta_m)}{n}} \sqrt[n]{r_1^{\beta_1} \cdots r_m^{\beta_m}} e^{\mathrm{i}(\beta_1\theta_1 + \dots + \beta_m\theta_m)/n}.
+\]
+因而，只有当 \(\beta_1 + \dots + \beta_m\) 不是 \(n\) 的倍数时，\(z = \infty\) 是支点。用同样的方法讨论，可以知道，如果简单闭曲线的内部包含 \(a_{i_1}, \dots, a_{i_j}\)，与它们相应的 \(\beta_{i_1} + \dots + \beta_{i_j}\) 是 \(n\) 的倍数，那么当 \(z\) 沿该曲线绕一圈后 \(w\) 的值不变。
+\end{proof}
+%-----------------------------------
+\begin{example}
+    在怎样的域中，\(w = \sqrt{z^2 - 1}\) 能分出单值的全纯分支？ 
+\end{example}
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/7.png}
+    \caption{}
+    \label{fig:7-png}
+\end{marginfigure}
+
+\begin{proof}
+    由于
+\[
+w = \sqrt{z^2 - 1} = \sqrt{(z - 1)(z + 1)},
+\]
+这时 \(a_1 = 1\)，\(a_2 = -1\)，\(\beta_1 = \beta_2 = 1\)，\(n = 2\)。所以 \(1\) 和 \(-1\) 都是它的支点，但无穷远点不是支点。因而，在除去线段 \([-1,1]\) 的全平面上，或者在除去两条割线 \(\{z: -\infty < z < -1\}\) 和 \(\{z: 1 < z < \infty\}\) 的全平面上\ref{fig:7-png}，都能分出单值的全纯分支。
+\end{proof}
+%-------------------------------
+\begin{example}
+    设 \(f(z) = \sqrt{z^{-1}(1 - z)^3(z + 1)^{-1}}\)。试确定 \(f\) 在 \([0,1]\) 的上岸取正值的单值全纯分支 \(f_0\)，并计算 \(f_0(-\mathrm{i})\)。
+\end{example}
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/8.png}
+    \caption{}
+    \label{fig:8-png}
+\end{marginfigure}
+
+\begin{proof}
+    多值性主要发生在带根号的函数上，与 \((z+1)^{-1}\) 无关。令 \(\varphi(z) = \sqrt{z^{-1}(1 - z)^3}\)，这时 \(z = 0\) 和 \(z = 1\) 都是 \(\varphi\) 的支点，但 \(z = \infty\) 不是。由定理 2.4.7，\(\varphi\) 能在除去线段 \([0,1]\) 的全平面上分出单值全纯的分支。为了确定出在 \([0,1]\) 上岸取正值的分支，记 \(z = r_1 e^{\mathrm{i}\theta_1}\)，\(1 - z = r_2 e^{\mathrm{i}\theta_2}\)（图\ref{fig:8-png}），则
+\[
+\sqrt{z^{-1}(1 - z)^3} = \sqrt{r_1^{-1} r_2^3} e^{\mathrm{i}\frac{3\theta_2 - \theta_1}{2} + k\pi}, \quad k = 0, 1.
+\]
+当 \(z\) 在 \([0,1]\) 的上岸时，有
+\[
+\theta_1 = \theta_2 = 0,\quad r_1 = x,\quad r_2 = 1 - x.
+\]
+显然，\(k = 0\) 的那一支在上岸取正值，记为 \(\varphi_0\)，即
+\[
+\varphi_0(z) = \sqrt{r_1^{-1} r_2^3} e^{\mathrm{i}\frac{3\theta_2 - \theta_1}{2}}.
+\]
+现在计算 \(\varphi_0(-\mathrm{i})\)。若让 \(z\) 从原点的左边到达 \(-\mathrm{i}\)，则
+\[
+\theta_1 = \frac{3}{2}\pi,\quad \theta_2 = \frac{\pi}{4},\quad r_1 = 1,\quad r_2 = \sqrt{2}.
+\]
+所以
+\[
+\varphi_0(-\mathrm{i}) = 2^{\frac{3}{4}} e^{-\frac{3\pi}{8}\mathrm{i}},
+\]
+故
+\[
+f_0(-\mathrm{i}) = \frac{1}{1 - \mathrm{i}} e^{-\frac{3\pi}{8}\mathrm{i}} = 2^{\frac{1}{4}} e^{-\frac{3\pi}{8}\mathrm{i}}.
+\]
+若让 \(z\) 从 1 的右边到达 \(-\mathrm{i}\)，则
+\[
+\theta_1 = -\frac{\pi}{2},\quad \theta_2 = -\frac{7}{4}\pi,\quad r_1 = 1,\quad r_2 = \sqrt{2}.
+\]
+这时，
+\[
+\varphi_0(-\mathrm{i}) = 2^{\frac{3}{4}} e^{-\frac{19\pi}{8}\mathrm{i}} = 2^{\frac{3}{4}} e^{-(2\pi + \frac{3\pi}{8})\mathrm{i}} = 2^{\frac{3}{4}} e^{-\frac{3\pi}{8}\pi \mathrm{i}}.
+\]
+所得结果和刚才的完全一样。
+\end{proof}
+
+\subsection{分式线性变换}
+\begin{definition}[分式线性变换]
+    形如
+\[
+w = T(z) = \frac{az + b}{cz + d}
+\]
+的映射称为分式线性变换或Mobius变换，其中 \( a,b,c,d \) 是复常数，且满足 \( ad - bc \neq 0 \)。很明显，如果 \( ad - bc = 0 \)，则 \( T(z) \) 是一常数或无意义，我们排除这种情形。
+\end{definition}

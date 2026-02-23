@@ -1,0 +1,104 @@
+\part{全纯函数的积分表示}
+\section{复变函数的积分}%
+\label{sec:fubianhanshudejifen}
+
+\begin{definition}[函数沿曲线可积]
+    设 \( z = \gamma(t) \) (\( a \le t \le b \)) 是一条可求长曲线，\( f \) 是定义在 \( \gamma \) 上的函数，沿 \( \gamma \) 的正方向取分点 \( \gamma(a) = z_0, z_1, \dots, z_n = \gamma(b) \)，在 \( \gamma \) 中从 \( z_{k-1} \) 到 \( z_k \) 的弧段上任取点 \( \zeta_k \)，\( k = 1, \dots, n \)（见图\ref{fig:12-png}），作 Riemann 和
+    \begin{equation}
+        \label{equ:limanhe}
+\sum_{k=1}^n f(\zeta_k)(z_k - z_{k-1}). 
+    \end{equation}
+    用 \( s_k \) 记弧段 \( \overarc{z_{k-1}z_k} \) 的长度，那么：
+称 \( f \) 沿 \( \gamma \) 可积，如果 当 \( \lambda = \max\{s_k : 1 \le k \le n\} \to 0 \) 时，不论 \( \zeta_k \) 的取法如何，和式\ref{equ:limanhe}总有一确定的极限。\\
+\textbf{（函数沿曲线的积分）.}设\( f \) 沿 \( \gamma \) 可积，那么：称\( \int_\gamma f(z)\mathrm{d}z \)为\( f \) 沿 \( \gamma \) 的积分，如果\[
+\int_\gamma f(z)\mathrm{d}z = \lim_{\lambda \to 0} \sum_{k=0}^n f(\zeta_k)(z_k - z_{k-1}).
+\]
+ \end{definition}
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=1.2\textwidth]{figures/12.png}
+    \caption{}
+    \label{fig:12-png}
+\end{marginfigure}
+
+\begin{prop}[可积的条件]
+    设$f=u+\mathrm{i}v$在可求长曲线$\gamma$ 上连续，那么：$f$ 沿$\gamma$ 可积，且
+    \[
+\int_\gamma f(z)\,\mathrm{d}z = \int_\gamma u\,\mathrm{d}x - v\,\mathrm{d}y + \mathrm{i}\int_\gamma v\,\mathrm{d}x + u\,\mathrm{d}y.
+\]
+\end{prop}
+
+\begin{prop}[可积的条件]
+    如果 \( z = \gamma(t) \) (\( a \le t \le b \)) 是光滑曲线，\( f \) 在 \( \gamma \) 上连续，那么
+\[
+\int_\gamma f(z)\,\mathrm{d}z = \int_a^b f(\gamma(t))\gamma'(t)\,\mathrm{d}t.
+\]
+\end{prop}
+
+\begin{prop}[可积的性质]
+    如果 \(f, g\) 在可求长曲线 \(\gamma\) 上连续，那么：
+\begin{enumerate}
+    \item \(\int_{\gamma^-} f(z)\,\mathrm{d}z = -\int_\gamma f(z)\,\mathrm{d}z\)，这里，\(\gamma^-\) 是指与 \(\gamma\) 方向相反的曲线；
+    \item \(\int_\gamma \bigl(\alpha f(z) + \beta g(z)\bigr)\,\mathrm{d}z = \alpha \int_\gamma f(z)\,\mathrm{d}z + \beta \int_\gamma g(z)\,\mathrm{d}z\)，这里，\(\alpha, \beta\) 是两个复常数；
+    \item \(\int_\gamma f(z)\,\mathrm{d}z = \int_{\gamma_1} f(z)\,\mathrm{d}z + \int_{\gamma_2} f(z)\,\mathrm{d}z\)，这里，\(\gamma\) 是由 \(\gamma_1\) 和 \(\gamma_2\) 组成的曲线。
+\end{enumerate}
+\end{prop}
+\begin{prop}[积分估计]
+    如果 \(\gamma\) 的长度为 \(L\)，\(M = \sup_{z \in \gamma} |f(z)|\)，那么
+\[
+\left| \int_\gamma f(z)\,\mathrm{d}z \right| \le ML.
+\]
+\end{prop}
+
+\section{Cauchy积分定理}%
+\label{sec:Cauchy_jifendingli}
+\begin{theorem}[Cauchy积分定理]
+    设 \( D \) 是 \( \mathbb{C} \) 中的单连通域，\( f \in H(D) \)，且 \( f' \) 在 \( D \) 中连续，则对 \( D \) 中任意的可求长闭曲线 \( \gamma \)，均有
+\[
+\int_\gamma f(z)\,\mathrm{d}z = 0.
+\]
+\end{theorem}
+\begin{proof}
+由 \(\gamma\) 围成的域记为 \(G\)，因为 \(f'\) 连续，即 \(\frac{\partial u}{\partial x}, \frac{\partial v}{\partial x}, \frac{\partial u}{\partial y}, \frac{\partial v}{\partial y}\) 连续，故可用 Green 公式。又因 \(f\) 在 \(D\) 中全纯，故 Cauchy-Riemann 方程成立。于是
+\begin{align*}
+\int_\gamma u\,\mathrm{d}x - v\,\mathrm{d}y &= \iint_G \left( -\frac{\partial v}{\partial x} - \frac{\partial u}{\partial y} \right)\mathrm{d}x\mathrm{d}y = 0, \\
+\int_\gamma v\,\mathrm{d}x + u\,\mathrm{d}y &= \iint_G \left( \frac{\partial u}{\partial x} - \frac{\partial v}{\partial y} \right)\mathrm{d}x\mathrm{d}y = 0.
+\end{align*}
+\end{proof}
+
+\begin{theorem}[Cauchy-Goursat]
+    设 \( D \) 是 \( \mathbb{C} \) 中的单连通域，如果 \( f \in H(D) \)，那么对 \( D \) 中任意的可求长闭曲线 \( \gamma \)，均有
+\[
+\int_\gamma f(z)\,\mathrm{d}z = 0.
+\]
+\begin{lemma}
+    设 \( f \) 是域 \( D \) 中的连续函数，\( \gamma \) 是 \( D \) 内的可求长曲线。对于任给的 \( \varepsilon > 0 \)，一定存在一条 \( D \) 中的折线 \( P \)，使得
+\begin{enumerate}
+    \item \( P \) 和 \( \gamma \) 有相同的起点和终点，\( P \) 中其他的顶点都在 \( \gamma \) 上；
+    \item \( \left| \int_\gamma f(z)\,\mathrm{d}z - \int_P f(z)\,\mathrm{d}z \right| < \varepsilon \)。
+\end{enumerate}
+\end{lemma}
+\end{theorem}
+
+\begin{theorem}[减弱条件]
+    设 \( D \) 是可求长简单闭曲线 \( \gamma \) 的内部，若 \( f \in H(D) \cap C(\overline{D}) \)，则
+\[
+\int_\gamma f(z)\,\mathrm{d}z = 0.
+\]
+\end{theorem}
+
+在下面的意义下，Cauchy 积分定理在多连通域内也成立。设 \(\gamma_0,\gamma_1,\dots,\gamma_n\) 是 \(n+1\) 条可求长的简单闭曲线，如果 \(\gamma_1,\dots,\gamma_n\) 都在 \(\gamma_0\) 的内部，\(\gamma_1,\dots,\gamma_n\) 中的每一条都在其他 \(n-1\) 条的外部，这样的 \(n+1\) 条曲线就围成了一个 \(n+1\) 连通域 \(D\)，这个域 \(D\) 的边界 \(\gamma\) 由 \(\gamma_0,\gamma_1,\dots,\gamma_n\) 共 \(n+1\) 条曲线组成。\(\gamma\) 的正方向规定如下：当我们沿着 \(\gamma\) 的正方向运动时，\(D\) 总是在我们的左边。这时，对 \(\gamma_0\) 来说是逆时针方向，而对 \(\gamma_1,\dots,\gamma_n\) 则是顺时针方向。对于这样的域和边界，Cauchy 积分定理也成立。
+
+\begin{theorem} 设 \(\gamma_0,\gamma_1,\dots,\gamma_n\) 是 \(n+1\) 条可求长简单闭曲线，\(\gamma_1,\dots,\gamma_n\) 都在 \(\gamma_0\) 的内部，\(\gamma_1,\dots,\gamma_n\) 中的每一条都在其他 \(n-1\) 条的外部，\(D\) 是由这 \(n+1\) 条曲线围成的域，用 \(\gamma\) 记 \(D\) 的边界。如果 \(f \in H(D) \cap C(\overline{D})\)，那么
+\begin{equation}
+\int_\gamma f(z)\,\mathrm{d}z = 0,
+\label{eq:3.2.4}
+\end{equation}
+这里，积分沿 \(\gamma\) 的正方向进行。式 \eqref{eq:3.2.4} 也可写为
+\begin{equation}
+\int_{\gamma_0} f(z)\,\mathrm{d}z = \int_{\gamma_1} f(z)\,\mathrm{d}z + \dots + \int_{\gamma_n} f(z)\,\mathrm{d}z,
+\label{eq:3.2.5}
+\end{equation}
+式 \eqref{eq:3.2.5} 右端的积分分别沿 \(\gamma_1,\dots,\gamma_n\) 的逆时针方向进行。
+\end{theorem}
