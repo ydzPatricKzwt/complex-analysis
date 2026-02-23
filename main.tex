@@ -1,0 +1,41 @@
+%Snippets:notestex
+\documentclass[10pt]{ctexart}
+\pdfoutput=1
+\usepackage{NotesTeX,lipsum}
+%\usepackage{style/my_notestex}
+\newcommand{\incfig}[1]{%
+
+    \def\svgwidth{\columnwidth}
+
+    \import{./figures/}{#1.pdf_tex}
+
+}
+% 中文标题：LaTeX数学笔记模板
+\title{\begin{center}{\Huge \textit{课程科目}}\\{{\itshape 学期}}\end{center}}
+
+\author{朱文桐\footnote{\href{www.example.com}{\textit{个人主页}}}}
+% 中文单位
+\affiliation{
+  重庆大学数学与统计学院\
+  数学类03
+}
+\emailAdd{20233259@stu.cqu.edu.cn}
+
+\begin{document}
+    \maketitle
+    \flushbottom
+    \newpage
+    \pagestyle{fancynotes}
+
+%------------------------------------------------------------------
+     \input{chapters/chap1.tex}
+     \input{chapters/chap2.tex}
+    \input{chapters/chap3.tex}
+   % \input{chapters/chap4.tex}
+        % \input{chapters/chap5.tex}
+        % \input{chapters/chap6.tex}
+        % \input{chapters/chap8.tex}
+%-------------------------------------------------------------------
+
+\end{document}
+
